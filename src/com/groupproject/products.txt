@@ -1,0 +1,12 @@
+Apple,Fruit,McIntosh,1.00,false
+Mango,Fruit,India,2.00,false
+Plantain,Fruit,Mexico,1.25,false
+Coke,Beverage,20oz,1.75,false
+Squirt,Beverage,64oz,4.00,false
+Water,Beverage,1L,1.50,false
+Lays,Snack,32oz,4.50,false
+Jerky,Snack,3oz,0.50,false
+Snickers,Snack,6oz,0.75,false
+Lighter,Taxable,Bic,2.25,true
+Napkins,Taxable,Paper,2.50,true
+Newspaper,Taxable,Detroit,3.00,true
