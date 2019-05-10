@@ -4,15 +4,15 @@ public class Product {
 	
 	// Instance variables;
 	private String name;
-	private String catagory;
+	private String category;
 	private String description;
 	private double price;
 	private boolean taxable;
 	
-	//Constructor for Product class
+	// Constructor for Product class
 	public Product(String name, String catagory, String description, double price, boolean taxable) {
 		this.name = name;
-		this.catagory = catagory;
+		this.category = catagory;
 		this.description = description;
 		this.price = price;
 		this.taxable = taxable;
@@ -28,14 +28,14 @@ public class Product {
 		this.name = name;
 	}
 
-	// Getter for catagory
+	// Getter for category
 	public String getCatagory() {
-		return catagory;
+		return category;
 	}
 
-	// Setter for catagory
+	// Setter for category
 	public void setCatagory(String catagory) {
-		this.catagory = catagory;
+		this.category = catagory;
 	}
 
 	// Getter for description
@@ -71,7 +71,7 @@ public class Product {
 	// Override method for toString
 	@Override
 	public String toString() {
-		return name + "\t" + catagory + "\t" + description + "\t" + price + "\t" + taxable;
+		return name + "\t" + category + "\t" + description + "\t" + price + "\t" + taxable;
 	}
 
 }
