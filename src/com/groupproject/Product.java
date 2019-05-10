@@ -8,6 +8,10 @@ public class Product {
 	private String description;
 	private double price;
 	private boolean taxable;
+
+	// Blank constructor for for Product class, needed for the Order child subclass
+	public Product() {
+	}
 	
 	// Constructor for Product class
 	public Product(String name, String catagory, String description, double price, boolean taxable) {
@@ -71,7 +75,7 @@ public class Product {
 	// Override method for toString
 	@Override
 	public String toString() {
-		return name + "\t" + category + "\t" + description + "\t" + price + "\t" + taxable;
+		return name + "\t" + category + "\t" + description + "\t" + price;
 	}
 
 }
