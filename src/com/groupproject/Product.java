@@ -9,7 +9,7 @@ public class Product {
 	private double price;
 	private boolean taxable;
 	
-	//Constructor for Product class
+	// Constructor for Product class
 	public Product(String name, String catagory, String description, double price, boolean taxable) {
 		this.name = name;
 		this.category = catagory;
@@ -28,12 +28,12 @@ public class Product {
 		this.name = name;
 	}
 
-	// Getter for catagory
+	// Getter for category
 	public String getCatagory() {
 		return category;
 	}
 
-	// Setter for catagory
+	// Setter for category
 	public void setCatagory(String catagory) {
 		this.category = catagory;
 	}
