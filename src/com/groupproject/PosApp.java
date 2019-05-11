@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class PosApp {
 
 	public static void main(String[] args) {
@@ -45,10 +44,10 @@ public class PosApp {
 			price = lineword[3];
 			flag = lineword[4];
 			quantity = Validator.getInt(scan, "\n How many would you like to order?:", 1, 15);
-			// read the price of the product from the file products
-			priceD = Double.parseDouble(price);
+			String oprice=showPrice("src/com/groupproject/products.txt", option,option);
+			priceD = Double.parseDouble(oprice);
 			arrOrder.add(new Order(name, desc, " ", priceD, Boolean.parseBoolean(flag), quantity));
-			message = "Would you like to order something else? (y/n ";
+			message = "Would you like to order something else? (y/n) ";
 			optionFlag = Validator.getStringMatchingRegex(scan, message, "^[nsNS]{1}");
 			readFromFile();	
 		} while (optionFlag.equals("y") || optionFlag.equals("Y"));
@@ -115,6 +114,36 @@ public class PosApp {
 		}
 
 	}
+	
+	public static String showPrice(String fileName, int option1, int option2){
+		   String line = null;
+		   String price=null;
+		   int currentLineNo = 0;
+		   BufferedReader in = null;
+		   try {
+		       in = new BufferedReader (new FileReader(fileName));
+		       while(currentLineNo<option1) {
+		            if (in.readLine()==null) {
+		                  throw new IOException("File too small");
+		            }
+		            currentLineNo++;
+		            }
+	          while(currentLineNo<=option2) {
+	        	  line = in.readLine();
+		           String[] lineword = new String[5];
+		           lineword = line.split(",");
+		           price = lineword[3];
+				   //System.out.printf( price);
+				   currentLineNo++;
+				   }
+			   } catch (IOException ex) {
+			            System.out.println("Problem reading file.\n" + ex.getMessage());
+			   } finally { try { if (in!=null) in.close(); } catch(IOException ignore) {}
+		    }
+		   return price;
+		 }
+	
+	
 
 
 	}

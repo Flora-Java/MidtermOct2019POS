@@ -1,9 +1,4 @@
 package com.groupproject;
-
-
-
-
-
 	import java.util.Scanner;
 
 	// this is a concrete class that can be used over and over again
