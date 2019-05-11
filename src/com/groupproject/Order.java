@@ -8,11 +8,12 @@ public class Order extends Product {
 	
 	// Product overloaded constructor
 	public Order() {
+		super();
 	}
 
 	// Using data for the parent superclass and data specific to the class
-	public Order(String name, String catagory, String description, double price, boolean taxable, int quantity) {
-		super(name, catagory, description, price, taxable);
+	public Order(String name, String category, String description, double price, boolean taxable, int quantity) {
+		super(name, category, description, price, taxable);
 		this.quantity = quantity;
 	}
 

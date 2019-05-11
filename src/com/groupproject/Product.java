@@ -14,9 +14,9 @@ public class Product {
 	}
 	
 	// Constructor for Product class
-	public Product(String name, String catagory, String description, double price, boolean taxable) {
+	public Product(String name, String category, String description, double price, boolean taxable) {
 		this.name = name;
-		this.category = catagory;
+		this.category = category;
 		this.description = description;
 		this.price = price;
 		this.taxable = taxable;

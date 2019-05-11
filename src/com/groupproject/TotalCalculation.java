@@ -31,12 +31,8 @@ public static void creditCardCheck(String cardNumber,String expDate,String CVV) 
 		   msg="not valid";
 	   return msg;
     }
-	public static double cashCheck(double grandTotal,double amountTendered) {
-		
-		double change=amountTendered-grandTotal;
-		
-		return change;
-	}
+	
+	
 	public static void checkNumber() {
 		
 	}
@@ -53,14 +49,14 @@ public static void creditCardCheck(String cardNumber,String expDate,String CVV) 
 				.println("=======================================================================");
 
 		for (int i = 0; i <arrOrder.size(); i++) {
-			System.out.println((i+1)+".",arrOrder.getName(),arrOrder.getQuantity,arrOrder.getPrice());
+			//System.out.println((i+1)+".",arrOrder.getName(),arrOrder.getQuantity,arrOrder.getPrice());
 			System.out.println();
 		}
-		System.out.println("Sub Total:");
-		System.out.println("      Tax:");
-		System.out.println("Grand Total:");
+		System.out.println("   Sub Total:");
+		System.out.println("         Tax:");
+		System.out.println(" Grand Total:");
 		System.out.println("Payment Type:");
-		System.out.println("Thank You");
+		System.out.println("          Thank You           ");
 				
 	}
 	
