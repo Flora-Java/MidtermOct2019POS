@@ -90,7 +90,7 @@ public class PosApp {
 			} 
 			else if (cashSelection == 2) {
 				creditCardNum = Validator.getStringMatchingRegex(scan,
-						"Please provide Credit card Number : (16 digits) ", "^[4]{1}[0-9]{15}");
+						"Please provide Credit card Number: (xxxx-xxxx-xxxx-xxxx) ", "\\d{4}-\\d{4}-\\d{4}-\\d{4}");
 				cVVCreditCard = Validator.getStringMatchingRegex(scan, "Please provide Expiration date: (mm/yy) ",
 						"(0[1-9]|1[012])\\/(19|20|21|22|23|24)");
 
