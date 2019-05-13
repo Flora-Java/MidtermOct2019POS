@@ -158,10 +158,10 @@ public class PosApp {
 			// If-else statements to calculate the payment for the order
 			// Calculates cash payment
 			if (cashSelection == 1) {
-				System.out.print("Enter the tendered amount: ");
+				System.out.print("Enter the tendered amount: $");
 				cashT = scan.nextDouble();
 				change = cashT - grandTotal;
-				System.out.println("Your change: " + df2.format(change));
+				System.out.println("Your change: $" + df2.format(change));
 			
 			// Calculates credit card payment
 			} else if (cashSelection == 2) {
