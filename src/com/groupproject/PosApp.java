@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,6 @@ public class PosApp {
 		ArrayList<Integer> quant = new ArrayList<Integer>();
 		ArrayList<String> item = new ArrayList<String>();
 		ArrayList<Boolean> tax = new ArrayList<Boolean>();
-		ArrayList<Product> catalog = new ArrayList<Product>();
 		ArrayList<Order> order=new ArrayList<Order>();
 
 		int option = 0;
@@ -43,10 +43,9 @@ public class PosApp {
 		String credCardNum1 = " ";
 		String creditCardNum = " ";
 		
+		DecimalFormat df2 = new DecimalFormat("#,##0.00");
 
-		catalog = createArrayWithFileContent();
 		while (!(option == 13)) {
-			clearScreen();
 			System.out.println("=================================================\n");
 			System.out.println("		Welcome to FFC'Store \n");
 			System.out.println("=================================================\n");
@@ -77,8 +76,6 @@ public class PosApp {
 				System.out.println("Good Bye!");
 				break;
 			}
-			// here is where you display array list with order
-			clearScreen();
 			System.out.println("\n This your Order :");
 			System.out.println("\n Item             Qty             Price           Tax");
 			System.out.println("=========================================================");
@@ -94,22 +91,21 @@ public class PosApp {
 				sum=price.get(i)+taxes;
 				
 				total= sum*quant.get(i) ;
-				
-				System.out.printf("%-18s %-13s $%-15s $%-10s \n", item.get(i), quant.get(i), price.get(i),totalTaxes);
+				System.out.printf("%-18s %-13s $%-15s $%-10s \n", item.get(i), quant.get(i), df2.format(price.get(i)), df2.format(totalTaxes));
 				grandTotal = grandTotal+total;
 			}
 			System.out.println(" ");
-			System.out.println("\n                          Grand Total(With Taxes) :$" + grandTotal);
+			System.out.println("\n                        Grand Total(With Taxes) :$" + df2.format(grandTotal));
 
 			// asking for a payment type
 			cashSelection = Validator.getInt(scan,
-					"\n    Please Select Your Payment Type " + "(Enter 1.Cash : 2.Credit: 3.Check :):", 1, 3);
+					"\n    Please Select Your Payment Type " + "(Enter 1.Cash  2.Credit 3.Check ):", 1, 3);
 			System.out.println(" ");
 			if (cashSelection == 1) {
 				System.out.println("Enter the tendered Amount:");
 				cashT = scan.nextDouble();
 				change = cashT - grandTotal;
-				System.out.println("Change :" + change);
+				System.out.println("Your change :" + df2.format(change));
 			} 
 			else if (cashSelection == 2) {
 				creditCardNum = Validator.getStringMatchingRegex(scan,
@@ -128,17 +124,16 @@ public class PosApp {
 			System.out.println("=================================================");
 			for (int i = 0; i < quant.size(); i++) {
 				sum = quant.get(i) * price.get(i);
-				System.out.printf("%-18s %-13s $%-15s \n", item.get(i), quant.get(i), price.get(i));
+				System.out.printf("%-18s %-13s $%-15s \n", item.get(i), quant.get(i), df2.format(price.get(i)));
 				total = total + sum;
 			}
 			System.out.println("");
-			System.out.println("\n                          Sub Total :$" + (grandTotal-totalTaxes));
-			// here you need to include the total with taxes, I couldnt find it.
-			System.out.println("\n               Total (taxes included) : $"+grandTotal);
+			System.out.println("\n                       Sub Total : $" + (df2.format(grandTotal-totalTaxes)));
+			System.out.println("\n          Total (taxes included) : $"+df2.format(grandTotal));
 
 			if (cashSelection == 1) {
-				System.out.println("\nYou paid with cash, tendered amount: " + cashT);
-				System.out.println("your change: 					     " + change);
+				System.out.println("\nYou paid with cash, tendered amount: $" + df2.format(cashT));
+				System.out.println("your change: 			     $" + df2.format(change));
 			} else if (cashSelection == 2) {
 				credCardNum1 = creditCardNum.substring(12);
 				System.out.println("\nYou paid with Credit Card number: xxxx-xxxx-xxxx-" + credCardNum1);
@@ -147,6 +142,7 @@ public class PosApp {
 				System.out.println("\nYou paid with check number : " + checkNumber);
 
 			}
+			System.out.println("\n\n");
 		}
 	}
 
@@ -229,7 +225,6 @@ public class PosApp {
 				String[] lineword = new String[5];
 				lineword = line.split(",");
 				price = Double.parseDouble(lineword[3]);
-				// System.out.println(line);
 				currentLineNo++;
 			}
 		} catch (IOException ex) {
@@ -262,7 +257,6 @@ public class PosApp {
 				String[] lineword = new String[5];
 				lineword = line.split(",");
 				item = lineword[0];
-				// System.out.println(line);
 				currentLineNo++;
 			}
 		} catch (IOException ex) {
@@ -296,7 +290,6 @@ public class PosApp {
 				lineword = line.split(",");
 				tax =Boolean.parseBoolean(lineword[4]);
 				
-				// System.out.println(tax);
 				currentLineNo++;
 			}
 		} catch (IOException ex) {
@@ -309,55 +302,6 @@ public class PosApp {
 			}
 		}
 		return tax;
-	}
-
-	public final static void clearScreen() {
-		try {
-			final String os = System.getProperty("os.name");
-
-			if (os.contains("Windows")) {
-				Runtime.getRuntime().exec("cls");
-			} else {
-				Runtime.getRuntime().exec("clear");
-			}
-		} catch (final Exception e) {
-			// Handle any exceptions.
-		}
-	}
-
-	public static ArrayList<Product> createArrayWithFileContent() {
-		// move the content of file products.txt to an ArrayList to access price
-
-		ArrayList<Product> catalog = new ArrayList<Product>();
-		String file = "src/com/groupproject/products.txt";
-		Path path = Paths.get(file);
-		File f = path.toFile();
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(f));
-			String line = br.readLine();
-
-			String[] lineword = new String[5];
-			String name, desc;
-			double price;
-			while (line != null) {
-				// this is just printing the line to the console
-				lineword = line.split(",");
-				name = lineword[0];
-				desc = lineword[1];
-				price = Double.parseDouble(lineword[3]);
-				// this is grabbing the next line of data
-				line = br.readLine();
-				catalog.add(new Product(name, desc, " ", price, false));
-			}
-			br.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return catalog;
-
 	}
 
 }
