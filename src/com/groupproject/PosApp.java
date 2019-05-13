@@ -29,11 +29,13 @@ public class PosApp {
 		double priceD;
 		double sum = 0.0;
 		double taxes=0.0;
+		double totalTaxes=0.0;
 		double total = 0.0;
 		double grandTotal=0.0;
 		double cashT = 0.0;
 		double change = 0.0;
 		boolean taxable=false;
+		
 		String optionFlag = "y";
 		String items = null;
 		String message, cVVCreditCard, expDate;
@@ -83,7 +85,7 @@ public class PosApp {
 			for (int i = 0; i < quant.size(); i++) {
 				if(tax.get(i)) {
 					taxes =  price.get(i)*.06;
-					
+					totalTaxes=taxes*quant.get(i) ;
 					}
 				else {
 					taxes=0.0;
@@ -93,7 +95,7 @@ public class PosApp {
 				
 				total= sum*quant.get(i) ;
 				
-				System.out.printf("%-18s %-13s $%-15s $%-10s \n", item.get(i), quant.get(i), price.get(i),taxes);
+				System.out.printf("%-18s %-13s $%-15s $%-10s \n", item.get(i), quant.get(i), price.get(i),totalTaxes);
 				grandTotal = grandTotal+total;
 			}
 			System.out.println(" ");
@@ -106,7 +108,7 @@ public class PosApp {
 			if (cashSelection == 1) {
 				System.out.println("Enter the tendered Amount:");
 				cashT = scan.nextDouble();
-				change = cashT - total;
+				change = cashT - grandTotal;
 				System.out.println("Change :" + change);
 			} 
 			else if (cashSelection == 2) {
@@ -130,9 +132,9 @@ public class PosApp {
 				total = total + sum;
 			}
 			System.out.println("");
-			System.out.println("\n                          Sub Total :$" + total);
+			System.out.println("\n                          Sub Total :$" + (grandTotal-totalTaxes));
 			// here you need to include the total with taxes, I couldnt find it.
-			System.out.println("\n               Total (taxes included) : $");
+			System.out.println("\n               Total (taxes included) : $"+grandTotal);
 
 			if (cashSelection == 1) {
 				System.out.println("\nYou paid with cash, tendered amount: " + cashT);
@@ -294,7 +296,7 @@ public class PosApp {
 				lineword = line.split(",");
 				tax =Boolean.parseBoolean(lineword[4]);
 				
-				 System.out.println(tax);
+				// System.out.println(tax);
 				currentLineNo++;
 			}
 		} catch (IOException ex) {
