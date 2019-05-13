@@ -1,8 +1,12 @@
-package com.groupproject;
-	import java.util.Scanner;
+// The Validator class is used to validate the user input and to set the
+//  parameter of the validated inputted data.
 
-	// this is a concrete class that can be used over and over again
-	// you can also add your own validation methods here
+package com.groupproject;
+
+import java.util.Scanner;
+
+	// This is a concrete class that can be used over and over again
+	// You can also add your own validation methods here
 	public class Validator {
 		public static String getString(Scanner sc, String prompt) {
 			System.out.print(prompt);
@@ -11,6 +15,7 @@ package com.groupproject;
 			return s;
 		}
 
+		// This method tests if the input is a valid string
 		public static int getInt(Scanner sc, String prompt) {
 			int i = 0;
 			boolean isValid = false;
@@ -22,11 +27,12 @@ package com.groupproject;
 				} else {
 					System.out.println("Error! Invalid integer value. Try again.");
 				}
-				sc.nextLine(); // discard any other data entered on the line
+				sc.nextLine(); // Discard any other data entered on the line
 			}
 			return i;
 		}
 
+		// This method tests if the input is a valid integer, based on the range set by the user
 		public static int getInt(Scanner sc, String prompt, int min, int max) {
 			int i = 0;
 			boolean isValid = false;
@@ -42,6 +48,7 @@ package com.groupproject;
 			return i;
 		}
 
+		// This method tests if the input is a valid double
 		public static double getDouble(Scanner sc, String prompt) {
 			double d = 0;
 			boolean isValid = false;
@@ -58,6 +65,7 @@ package com.groupproject;
 			return d;
 		}
 
+		// This method tests if the input is a valid double, based on the range set by the user
 		public static double getDouble(Scanner sc, String prompt, double min, double max) {
 			double d = 0;
 			boolean isValid = false;
@@ -72,7 +80,7 @@ package com.groupproject;
 			}
 			return d;
 		}
-		
+		// This method tests if the input is a valid string, based on the Regex set by the user
 		public static String getStringMatchingRegex(Scanner sc, String prompt, String regex) {
 			boolean isValid = false;
 			String input;

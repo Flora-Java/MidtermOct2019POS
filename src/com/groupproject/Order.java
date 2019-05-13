@@ -1,3 +1,6 @@
+// This Order child class extends the parent Product class to add the quantity
+//  section to the products.
+
 package com.groupproject;
 
 public class Order extends Product {

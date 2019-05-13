@@ -1,3 +1,8 @@
+// The Product parent class catagorizes the list of products in the Products.txt to
+//  allow the PosApp application to extract the information and catagorize
+//  the sections that make up each product. The sections are: name, category, description,
+//  price and taxable.
+
 package com.groupproject;
 
 public class Product {
