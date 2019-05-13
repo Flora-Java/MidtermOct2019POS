@@ -7,6 +7,6 @@ Water,Beverage,1L,1.50,false
 Lays,Snack,32oz,4.50,false
 Jerky,Snack,3oz,0.50,false
 Snickers,Snack,6oz,0.75,false
-CottonTowel,Goods,Home Goods,2.25,true
-PaperNapkins,Goods,Paper Products,2.50,true
-DetroitNews,Goods,Newspaper,3.00,true
+Cotton Towel,Goods,Home Goods,2.25,true
+Paper Napkins,Goods,Paper Products,2.50,true
+Detroit News,Goods,Newspaper,3.00,true
