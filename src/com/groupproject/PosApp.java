@@ -19,22 +19,28 @@ public class PosApp {
 		ArrayList<Double> price = new ArrayList<Double>();
 		ArrayList<Integer> quant = new ArrayList<Integer>();
 		ArrayList<String> item = new ArrayList<String>();
+		ArrayList<Boolean> tax = new ArrayList<Boolean>();
 		ArrayList<Product> catalog = new ArrayList<Product>();
+		ArrayList<Order> order=new ArrayList<Order>();
 
 		int option = 0;
 		int cashSelection;
 		int quantity;
 		double priceD;
 		double sum = 0.0;
+		double taxes=0.0;
 		double total = 0.0;
+		double grandTotal=0.0;
 		double cashT = 0.0;
 		double change = 0.0;
+		boolean taxable=false;
 		String optionFlag = "y";
 		String items = null;
 		String message, cVVCreditCard, expDate;
 		String checkNumber = " ";
 		String credCardNum1 = " ";
 		String creditCardNum = " ";
+		
 
 		catalog = createArrayWithFileContent();
 		while (!(option == 13)) {
@@ -51,9 +57,13 @@ public class PosApp {
 				quantity = Validator.getInt(scan, "\n How many would you like to order?:", 1, 15);
 				priceD = showPrice("src/com/groupproject/products.txt", option, option);
 				items = showItem("src/com/groupproject/products.txt", option, option);
+				taxable = showTaxable("src/com/groupproject/products.txt", option, option);
 				price.add(priceD);
 				quant.add(quantity);
 				item.add(items);
+				tax.add(taxable);
+				order.add(new Order(items,"","",priceD,taxable,quantity));
+				
 				message = "\n Would you like to order something else? (y/n): ";
 				optionFlag = Validator.getStringMatchingRegex(scan, message, "[nyNY]{1}");
 				} else {
@@ -68,15 +78,26 @@ public class PosApp {
 			// here is where you display array list with order
 			clearScreen();
 			System.out.println("\n This your Order :");
-			System.out.println("\n Item             Qty            Total Price");
-			System.out.println("=================================================");
+			System.out.println("\n Item             Qty             Price           Tax");
+			System.out.println("=========================================================");
 			for (int i = 0; i < quant.size(); i++) {
-				sum = quant.get(i) * price.get(i);
-				System.out.printf("%-18s %-13s $%-15s \n", item.get(i), quant.get(i), price.get(i));
-				total = total + sum;
+				if(tax.get(i)) {
+					taxes =  price.get(i)*.06;
+					
+					}
+				else {
+					taxes=0.0;
+				}
+				
+				sum=price.get(i)+taxes;
+				
+				total= sum*quant.get(i) ;
+				
+				System.out.printf("%-18s %-13s $%-15s $%-10s \n", item.get(i), quant.get(i), price.get(i),taxes);
+				grandTotal = grandTotal+total;
 			}
 			System.out.println(" ");
-			System.out.println("\n                          Sub Total :$" + total);
+			System.out.println("\n                          Grand Total(With Taxes) :$" + grandTotal);
 
 			// asking for a payment type
 			cashSelection = Validator.getInt(scan,
@@ -99,6 +120,7 @@ public class PosApp {
 			} else if (cashSelection == 3) {
 				checkNumber = Validator.getStringMatchingRegex(scan, "Please provide check number :", "[0-9]{3}");
 			}
+			
 			System.out.println("\n This is your receipt. Thank you !\n");
 			System.out.println("\n Item             Qty            Total Price");
 			System.out.println("=================================================");
@@ -251,6 +273,40 @@ public class PosApp {
 			}
 		}
 		return item;
+	}
+	
+	public static boolean showTaxable(String fileName, int option1, int option2) {
+		String line = null;
+		boolean tax=false;
+		int currentLineNo = 1;
+		BufferedReader in = null;
+		try {
+			in = new BufferedReader(new FileReader(fileName));
+			while (currentLineNo < option1) {
+				if (in.readLine() == null) {
+					throw new IOException("File too small");
+				}
+				currentLineNo++;
+			}
+			while (currentLineNo <= option2) {
+				line = in.readLine();
+				String[] lineword = new String[5];
+				lineword = line.split(",");
+				tax =Boolean.parseBoolean(lineword[4]);
+				
+				 System.out.println(tax);
+				currentLineNo++;
+			}
+		} catch (IOException ex) {
+			System.out.println("Problem reading file.\n" + ex.getMessage());
+		} finally {
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException ignore) {
+			}
+		}
+		return tax;
 	}
 
 	public final static void clearScreen() {
